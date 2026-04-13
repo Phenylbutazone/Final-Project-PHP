@@ -10,6 +10,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+                    <h2>Welcome {{ $user->username }}</h2>
+                    <p>Account Type: {{ $user->account_type }}</p>
+                    <hr>
+                    <p>Select a module from the navigation menu.</p>
                 </div>
             </div>
         </div>

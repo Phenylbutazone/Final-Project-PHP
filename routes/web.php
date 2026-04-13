@@ -1,32 +1,65 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\StaffController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+require __DIR__.'/auth.php';
 
-Route::get('/test-admin', function () {
-    return "ADMIN ACCESS GRANTED";
-})->middleware(['auth', 'role:admin']);
+/*
+|--------------------------------------------------------------------------
+| AUTHENTICATED USERS
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
 
-Route::middleware('auth')->group(function () {
+    // Main Home Page
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+    Route::get('/change-password', function () {
+        return "CHANGE PASSWORD PAGE";
+    })->name('password.change');
+
+    // Change profile / password (already provided by Breeze)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    
 });
 
-Route::middleware(['auth'])
-    ->get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 
-require __DIR__.'/auth.php';
+/*
+|--------------------------------------------------------------------------
+| ADMIN ONLY
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('/users', function () {
+        return "Admin User Management";
+    })->name('users.index');
+
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN + STAFF
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:admin,staff'])->group(function () {
+
+    Route::get('/subjects', function () {
+        return "Subject Management";
+    })->name('subjects.index');
+
+    Route::get('/programs', function () {
+        return "Program Management";
+    })->name('programs.index');
+
+});
