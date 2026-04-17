@@ -18,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
     'created_on',
     'created_by',
     'updated_on',
-    'updated_by'
+    'updated_by',
 ])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
@@ -26,8 +26,13 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
+
     public $timestamps = false;
-    
+
     protected function casts(): array
     {
         return [

@@ -16,15 +16,16 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('subjects.index')" :active="request()->routeIs('subjects.*')">
-                        {{ __('Subjects') }}
-                    </x-nav-link>
+                    @if(in_array(Auth::user()->account_type, ['admin', 'staff'], true))
+                        <x-nav-link :href="route('subjects.index')" :active="request()->routeIs('subjects.*')">
+                            {{ __('Subjects') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('programs.index')" :active="request()->routeIs('programs.*')">
-                        {{ __('Programs') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('programs.index')" :active="request()->routeIs('programs.*')">
+                            {{ __('Programs') }}
+                        </x-nav-link>
+                    @endif
 
-                    {{-- User Management --}}
                     @if(Auth::user()->account_type === 'admin')
                         <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
                             {{ __('Users') }}
@@ -34,7 +35,6 @@
                     <x-nav-link :href="route('password.change')" :active="request()->routeIs('password.change')">
                         {{ __('Change Password') }}
                     </x-nav-link>
-
                 </div>
             </div>
 
@@ -91,13 +91,15 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('subjects.index')">
-                {{ __('Subjects') }}
-            </x-responsive-nav-link>
+            @if(in_array(Auth::user()->account_type, ['admin', 'staff'], true))
+                <x-responsive-nav-link :href="route('subjects.index')">
+                    {{ __('Subjects') }}
+                </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('programs.index')">
-                {{ __('Programs') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('programs.index')">
+                    {{ __('Programs') }}
+                </x-responsive-nav-link>
+            @endif
 
             @if(Auth::user()->account_type === 'admin')
                 <x-responsive-nav-link :href="route('users.index')">
