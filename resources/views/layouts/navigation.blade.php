@@ -29,10 +29,6 @@
                             {{ __('Users') }}
                         </x-nav-link>
                     @endif
-
-                    <x-nav-link :href="route('password.change')" :active="request()->routeIs('password.change')">
-                        {{ __('Change Password') }}
-                    </x-nav-link>
                 </div>
             </div>
 
@@ -102,10 +98,6 @@
                     {{ __('Users') }}
                 </x-responsive-nav-link>
             @endif
-
-            <x-responsive-nav-link :href="route('password.change')">
-                {{ __('Change Password') }}
-            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
