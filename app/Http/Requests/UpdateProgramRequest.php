@@ -27,7 +27,7 @@ class UpdateProgramRequest extends FormRequest
                 Rule::unique('programs', 'code')->ignore($program->id),
             ],
             'title' => ['required', 'string', 'max:255'],
-            'years' => ['required', 'integer', 'min:0'],
+            'years' => ['required', 'integer', 'min:0', 'max:12'],
         ];
     }
 }

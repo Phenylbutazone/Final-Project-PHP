@@ -19,7 +19,7 @@ class StoreProgramRequest extends FormRequest
         return [
             'code' => ['required', 'string', 'max:255', 'unique:programs,code'],
             'title' => ['required', 'string', 'max:255'],
-            'years' => ['required', 'integer', 'min:0'],
+            'years' => ['required', 'integer', 'min:0', 'max:12'],
         ];
     }
 }

@@ -27,7 +27,7 @@ class UpdateSubjectRequest extends FormRequest
                 Rule::unique('subjects', 'code')->ignore($subject->id),
             ],
             'title' => ['required', 'string', 'max:255'],
-            'unit' => ['required', 'integer', 'min:1'],
+            'unit' => ['required', 'integer', 'min:1', 'max:6'],
         ];
     }
 }

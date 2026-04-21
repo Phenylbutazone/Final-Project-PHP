@@ -19,7 +19,7 @@ class StoreSubjectRequest extends FormRequest
         return [
             'code' => ['required', 'string', 'max:255', 'unique:subjects,code'],
             'title' => ['required', 'string', 'max:255'],
-            'unit' => ['required', 'integer', 'min:1'],
+            'unit' => ['required', 'integer', 'min:1', 'max:6'],
         ];
     }
 }
